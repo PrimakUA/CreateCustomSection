@@ -1,0 +1,33 @@
+<?php
+/** @var $viewModelPrimakAttribute Primak\CartData\ViewModel\CartData */
+$viewModelCartData = $block->getData('viewModelCartData');
+$currency = '';
+if (isset($viewModelCartData)) {
+    $currency = $viewModelCartData->getCurrentCurrencyCode();
+}
+?>
+
+<div class="cart-data-block" data-bind="scope: 'section'">
+    <div data-bind="if: cartData()">
+        <ul data-bind="foreach: cartData()">
+            <li data-bind="text: $data"></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "section": {
+                        "component": "Primak_CartData/js/cartData",
+                        "config": {
+                            "currency": "<?= /* @noEscape */ $currency ?>"
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>
